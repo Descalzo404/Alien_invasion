@@ -18,6 +18,14 @@ class Ship():
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
 
+        #Moviment's flag
+        self.moving_right = False
+
+    def update(self):
+        """Updates the position of the spaceship"""
+        if self.moving_right:
+            self.rect.centerx += 1
+
     def blitme(self):
         """Draw the spaceship in its actual position"""
         self.screen.blit(self.image,self.rect)

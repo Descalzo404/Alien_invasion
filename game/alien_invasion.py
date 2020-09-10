@@ -1,5 +1,6 @@
 import sys
 import pygame
+import game_functions as gf
 
 from settings import Settings
 from ship import Ship
@@ -18,16 +19,9 @@ def run_game():
     while True:
 
         #Check for events in keyboard or mouse
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-        #Redraw the screen
-        screen.fill(ai_settings.bg_color)
-        #Displays the spaceship
-        ship.blitme()
-
-        #Displays the most recent screen
-        pygame.display.flip()
+        gf.check_events()
+        
+        #Display the new screen
+        gf.update_screen(ai_settings, screen, ship)
 
 run_game()

@@ -1,12 +1,17 @@
 import sys
 import pygame
+from bullet import Bullet
 
-def check_keydown_events(event, ship):
+def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """Answer to when the key is pressed"""
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
+    elif event.key == pygame.K_SPACE:
+        #Creates a new bullet and adds it to the group of bullets
+        new_bullet = Bullet(ai_settings, screen, ship)
+        bullets.add(new_bullet)
 
 def check_keyup_events(event, ship):
     """Answer to when the key is released"""
@@ -15,20 +20,23 @@ def check_keyup_events(event, ship):
     elif event.key == pygame.K_LEFT:
          ship.moving_left = False
 
-def check_events(ship):
+def check_events(ai_settings, screen, ship, bullets):
     """Answer for events in the keyboard or mouse"""
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                check_keydown_events(event, ship)
+                check_keydown_events(event, ai_settings, screen, ship, bullets)
             elif event.type == pygame.KEYUP:
                 check_keyup_events(event, ship)
 
-def update_screen(ai_settings, screen, ship):
+def update_screen(ai_settings, screen, ship, bullets):
     """Updates the screen"""
     #Redraw the screen in every loop
     screen.fill(ai_settings.bg_color)
+    #Redraw every bullet behind the spaceship
+    for bullet in bullets.sprites():
+        bullet.draw_bullet()
     ship.blitme()
 
     #Displays the most recent screen

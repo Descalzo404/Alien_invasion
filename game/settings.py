@@ -10,6 +10,7 @@ class Settings():
 
         #Spaceship configuration
         self.ship_speed_factor = 1.5
+        self.ship_limit = 3
 
         #Bullet configuration
         self.bullet_speed_factor = 1
@@ -20,6 +21,6 @@ class Settings():
 
         #Alien configuration
         self.alien_speed_factor = 1
-        self.fleet_drop_speed = 10
+        self.fleet_drop_speed = 100
         #Fleet_direction = 1 moving to the right; -1 moving to the left
         self.fleet_direction = 1 

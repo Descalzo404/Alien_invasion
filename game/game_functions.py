@@ -1,5 +1,6 @@
 import sys
 import pygame
+from time import sleep
 from bullet import Bullet
 from alien import Alien
 
@@ -54,7 +55,7 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
             
-   check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
 
 def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     """Responds to collision between aliens and bullets"""
@@ -109,10 +110,14 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     alien.rect.x = alien.x
     aliens.add(alien)
 
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """Verifies if the fleet is in a border and the updates the position of all aliens in the fleet"""
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
+
+    #Verifies if a collision between aliens and the spaceship has occured
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
 def check_fleet_edges(ai_settings, aliens):
     """Respond to when a alien reaches the border of the screen"""
@@ -126,3 +131,19 @@ def change_fleet_direction(ai_settings, aliens):
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
+
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    """Responds to when the spaceship has been hitten"""
+    #Decrease the value of the spaceships allowed
+    stats.ships_left -= 1
+
+    #Clears the list of aliens and bullets
+    aliens.empty()
+    bullets.empty()
+
+    #Creates a new fleet and recentralize the spaceship
+    create_fleet(ai_settings, screen, ship, aliens)
+    ship.center_ship()
+
+    #Makes a pause
+    sleep(0.5)

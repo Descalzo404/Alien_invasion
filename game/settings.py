@@ -20,6 +20,9 @@ class Settings():
         #Alien configuration
         self.fleet_drop_speed = 10
 
+        #Points
+        self.alien_points = 50
+
         #Scale where the game increases
         self.speedup_scale = 1.1
 

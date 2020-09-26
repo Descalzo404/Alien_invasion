@@ -47,7 +47,7 @@ def run_game():
             #Update the position of the bullets and clean the bullets that reach the end of the screen
             gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)
             #Updates the position of the alien
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets)
         #Display the new screen
         gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)
 

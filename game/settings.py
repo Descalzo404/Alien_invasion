@@ -9,7 +9,7 @@ class Settings():
         self.bg_color = (230,230,230)
 
         #Spaceship configuration
-        self.ship_limit = 1
+        self.ship_limit = 3
 
         #Bullet configuration
         self.bullet_width = 3

@@ -57,6 +57,12 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bul
         create_fleet(ai_settings, screen, ship, aliens)
         ship.center_ship()
 
+def check_high_score(stats, sb):
+    """Verifies if there is a new high score"""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
+
 def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button):
     """Updates the screen"""
     #Redraw the screen in every loop
@@ -94,6 +100,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
         for aliens in collisions.values():
             stats.score += ai_settings.alien_points * len(aliens)
             sb.prep_score()
+        check_high_score(stats, sb)
 
     if len(aliens) == 0:
         #Destroy the existant projectiles and creates a new fleet

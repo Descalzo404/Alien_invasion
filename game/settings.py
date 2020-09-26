@@ -9,7 +9,7 @@ class Settings():
         self.bg_color = (230,230,230)
 
         #Spaceship configuration
-        self.ship_limit = 3
+        self.ship_limit = 1
 
         #Bullet configuration
         self.bullet_width = 3
@@ -25,6 +25,8 @@ class Settings():
 
         #Scale where the game increases
         self.speedup_scale = 1.1
+        #Scale where the points inscreases
+        self.score_scale = 1.1
 
         self.initialize_dynamic_settings()
 
@@ -41,4 +43,6 @@ class Settings():
         self.ship_speed_factor *= self.speedup_scale
         self.bullet_speed_factor *= self.speedup_scale
         self.alien_speed_factor *= self.speedup_scale
+
+        self.alien_points = int(self.alien_points * self.score_scale)
     
